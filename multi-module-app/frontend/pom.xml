@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.example</groupId>
+	<artifactId>frontend</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.10.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+
+<build>
+	<plugins>
+		<plugin>
+			<artifactId>maven-resources-plugin</artifactId>
+			<version>3.0.2</version>
+			<executions>
+				<execution>
+					<id>prepare-package</id>
+					<phase>prepare-package</phase>
+					<goals>
+						<goal>copy-resources</goal>
+					</goals>
+					<configuration>
+						<outputDirectory>${basedir}/target/classes/public</outputDirectory>
+						<resources>
+							<resource>
+								<directory>${project.basedir}/build</directory>
+							</resource>
+						</resources>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+		<plugin>
+			<groupId>com.github.eirslett</groupId>
+			<artifactId>frontend-maven-plugin</artifactId>
+			<version>1.6</version>
+			<executions>
+				<execution>
+					<id>install node and yarn</id>
+					<goals>
+						<goal>install-node-and-yarn</goal>
+					</goals>
+					<configuration>
+						<nodeVersion>v9.9.0</nodeVersion>
+						<yarnVersion>v1.5.1</yarnVersion>
+					</configuration>
+				</execution>
+				<execution>
+					<id>yarn</id>
+					<goals>
+						<goal>yarn</goal>
+					</goals>
+					<phase>prepare-package</phase>
+					<configuration>
+					</configuration>
+				</execution>
+				<execution>
+					<id>yarn build</id>
+					<goals>
+						<goal>yarn</goal>
+					</goals>
+					<phase>prepare-package</phase>
+					<configuration>
+						<arguments>build</arguments>
+					</configuration>
+				</execution>
+				<execution>
+					<id>test</id>
+					<goals>
+						<goal>yarn</goal>
+					</goals>
+					<phase>test</phase>
+					<configuration>
+						<arguments>test</arguments>
+						<environmentVariables>
+							<CI>true</CI>
+						</environmentVariables>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+	</plugins>
+</build>
+
+</project>
