@@ -45,3 +45,6 @@ nbdist/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Frontend Maven Plugin Node install
+node
